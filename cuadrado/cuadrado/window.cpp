@@ -64,8 +64,8 @@ void window::clear() const {
 	SDL_Rect square;
 	square.w = 120;
 	square.h = 120;
-	square.x = _width / 2;
-	square.y = _height / 2;
+	square.x = (_width / 2) - (square.w / 2);
+	square.y = (_height / 2) - (square.h / 2);
 
 	SDL_SetRenderDrawColor(_renderer , 255, 0, 0, 255);
 	SDL_RenderFillRect(_renderer, &square);
