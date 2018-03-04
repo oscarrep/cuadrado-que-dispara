@@ -7,6 +7,7 @@ class window
 public:
 	window(const std::string &title, int width, int height);
 	~window();
+	inline bool isClosed() const { return _close; }
 private:
 	bool init();
 private:
