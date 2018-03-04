@@ -16,8 +16,8 @@ private:
 	bool init();
 private:
 	std::string _title;
-	int _width = 600;
-	int _height= 600;
+	int _width = 900;
+	int _height= 900;
 
 	bool _close = false;
 

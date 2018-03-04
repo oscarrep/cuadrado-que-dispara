@@ -58,7 +58,17 @@ void window::pollEvents() {
 }
 
 void window::clear() const {
-	SDL_SetRenderDrawColor(_renderer, 0, 0, 200, 255);
+	SDL_SetRenderDrawColor(_renderer, 0, 0, 255, 255);
 	SDL_RenderClear(_renderer);
+	
+	SDL_Rect square;
+	square.w = 120;
+	square.h = 120;
+	square.x = _width / 2;
+	square.y = _height / 2;
+
+	SDL_SetRenderDrawColor(_renderer , 255, 0, 0, 255);
+	SDL_RenderFillRect(_renderer, &square);
+
 	SDL_RenderPresent(_renderer);
 }
