@@ -3,13 +3,12 @@
 window::window(const std::string &title, int width, int height):
 	_title(title), _width(width), _height(height)
 {
-	if (!init()) {
-		_close = true;
-	}
+	_close = !init();
 }
 
 window::~window() 
 {
+	SDL_DestroyRenderer(_renderer);
 	SDL_DestroyWindow(_window);
 	SDL_Quit();
 }
@@ -30,9 +29,17 @@ bool window::init() {
 	);
 
 	if(_window == nullptr) {
-		std::cerr << "ERROR create window.\n";
+		std::cerr << "ERROR creating window.\n";
 		return 0;
 	}
+
+	_renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
+
+	if (_renderer == nullptr) {
+		std::cerr << "ERROR creating window.\n";
+		return 0;
+	}
+	
 
 	return true;
 }
@@ -47,5 +54,11 @@ void window::pollEvents() {
 		default:
 			break;
 		}
+	}
 }
+
+void window::clear() const {
+	SDL_SetRenderDrawColor(_renderer, 0, 0, 200, 255);
+	SDL_RenderClear(_renderer);
+	SDL_RenderPresent(_renderer);
 }
