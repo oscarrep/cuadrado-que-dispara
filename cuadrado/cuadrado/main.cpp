@@ -12,7 +12,7 @@ int main(int argv, char *argc[])
 {	
 	window window("Shooting Square", 750, 600);
 	while (!window.isClosed()) {
-
+		window.pollEvents();
 	}
 	return 0;
 }

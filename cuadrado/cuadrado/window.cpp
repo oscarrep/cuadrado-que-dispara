@@ -36,3 +36,16 @@ bool window::init() {
 
 	return true;
 }
+
+void window::pollEvents() {
+	SDL_Event event;
+	if (SDL_PollEvent(&event)) {
+		switch (event.type) {
+		case SDL_QUIT:
+			_close = true;
+			break;
+		default:
+			break;
+		}
+}
+}
