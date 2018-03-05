@@ -1,5 +1,6 @@
 #include "window.h"
 #include <iostream>
+
 window::window(const std::string &title, int width, int height):
 	_title(title), _width(width), _height(height)
 {
@@ -44,39 +45,27 @@ bool window::init() {
 	return true;
 }
 
-void window::pollEvents() {
-	SDL_Event event;
-	if (SDL_PollEvent(&event)) {
-		switch (event.type) {
-		case SDL_QUIT:
+void window::pollEvents(SDL_Event &event) {
+	switch (event.type) {
+	case SDL_QUIT:
+		_close = true;
+		break;
+
+	case SDL_KEYDOWN:
+		switch (event.key.keysym.sym) {
+		case SDLK_ESCAPE:
 			_close = true;
 			break;
-
-		case SDL_KEYDOWN:
-			switch (event.key.keysym.sym) {
-				case SDLK_ESCAPE:
-					_close = true;
-					break;
-			}
-		
-		default:
-			break;
 		}
+
+	default:
+		break;
 	}
 }
 
 void window::clear() const {
+	SDL_RenderPresent(_renderer);
 	SDL_SetRenderDrawColor(_renderer, 0, 0, 255, 255);
 	SDL_RenderClear(_renderer);
 	
-	SDL_Rect square;
-	square.w = 120;
-	square.h = 120;
-	square.x = (_width / 2) - (square.w / 2);
-	square.y = (_height / 2) - (square.h / 2);
-
-	SDL_SetRenderDrawColor(_renderer , 255, 0, 0, 255);
-	SDL_RenderFillRect(_renderer, &square);
-
-	SDL_RenderPresent(_renderer);
 }
